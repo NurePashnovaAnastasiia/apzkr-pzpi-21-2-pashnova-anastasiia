@@ -1,0 +1,127 @@
+﻿@model LightServeMVC.Models.ViewModels.CustomerView
+
+<div class="container">
+    <h1 class="mt-5">Customer Dashboard</h1>
+
+    <h2 class="mt-5">Menus</h2>
+    <div class="row">
+        @foreach (var menu in Model.Menus)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@menu.Name</h5>
+                        <a href="@Url.Action("Index", "Menu", new { menuId = menu.Id })" class="btn btn-primary">View Dishes</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h2 class="mt-5">Cafes</h2>
+    <div class="row">
+        @foreach (var cafe in Model.Cafes)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@cafe.Name</h5>
+                        <a href="@Url.Action("GetTables", "Table", new { cafeId = cafe.Id })" class="btn btn-primary">View Free Tables</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h2 class="mt-5">Orders</h2>
+    <div class="table-responsive mt-3">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>ID</th>
+                    <th>Is Done</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.DateTime.ToLocalTime()</td>
+                        <td>@order.Id</td>
+                        <td>@(order.IsDone ? "Completed" : "Pending")</td>
+                        <td>
+                            <a href="@Url.Action("Details", "Order", new { orderId = order.Id })" class="btn btn-primary mb-2">View Details</a>
+
+                        </td>
+                        <td>
+                            @if(order.IsDone == false)
+                            {
+                                @using (Html.BeginForm("Delete", "Order", new { orderId = order.Id }, FormMethod.Post))
+                                {
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@* @model LightServeMVC.Models.ViewModels.CustomerView
+
+<h1>Customer Dashboard</h1>
+
+<h2>Menus</h2>
+@foreach (var menu in Model.Menus)
+{
+    <div>
+        <h3>@menu.Name</h3>
+        <a href="@Url.Action("Index", "Menu", new { menuId = menu.Id })" class="btn btn-primary">View Dishes</a>
+    </div>
+}
+
+<h2>Cafes</h2>
+@foreach (var cafe in Model.Cafes)
+{
+    <div>
+        <h3>@cafe.Name</h3>
+        <a href="@Url.Action("GetTables", "Table", new { cafeId = cafe.Id })" class="btn btn-primary">View Free Tables</a>
+    </div>
+}
+
+<h2>Orders</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>ID</th>
+            <th>Is Done</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.DateTime.ToLocalTime()</td>
+                <td>@order.Id</td>
+                <td>@(order.IsDone ? "Completed" : "Pending")</td>
+                <td>
+                    <a href="@Url.Action("Details", "Order", new { orderId = order.Id })" class="btn btn-primary d-block">View Details</a>
+                    @using (Html.BeginForm("Delete", "Order", new { orderId = order.Id }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ *@

@@ -1,0 +1,23 @@
+﻿@model LightServeMVC.Models.Table
+
+<h1>Add Table</h1>
+
+@using (Html.BeginForm("Add", "Table", new { cafeId = ViewContext.HttpContext.Request.Query["cafeId"] }, FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Number, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Number, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Size, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Size, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Table</button>
+    </div>
+}
+

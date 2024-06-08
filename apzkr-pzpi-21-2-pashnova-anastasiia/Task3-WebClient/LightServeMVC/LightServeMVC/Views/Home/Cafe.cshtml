@@ -1,0 +1,72 @@
+﻿@{
+    var user = ViewData["User"] as User;
+    @model IEnumerable<LightServeMVC.Models.Cafe>
+
+}
+
+@if (user != null && user.IsAuthorized)
+{
+    <div class="container">
+        <div class="pt-3" style="display:flex; align-items: center;">
+            <div class="col-6">
+                <h2 style="color: #8e9b97">Your Cafes:</h2>
+            </div>
+            <div class="col-6" style="text-align: right">
+                <a href="@Url.Action("Add", "Cafe")" class="btn btn-success">Add Cafe</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            @if (Model.Count() != 0)
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cafe in Model)
+                        {
+                            <tr>
+                                <td>@cafe.Id</td>
+                                <td>@cafe.Name</td>
+                                <td>
+                                    <a href="@Url.Action("Info", "Cafe", new { id = cafe.Id })" class="btn btn-info">Info</a>
+                                    <a href="@Url.Action("Delete", "Cafe", new { id = cafe.Id })" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>You don't have any cafes yet.</p>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center align-items-center wrapper">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <h1>LightServe</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        h1 {
+            font-size: 100px;
+        }
+
+        .wrapper {
+            min-height: 80vh;
+        }
+    </style>
+}

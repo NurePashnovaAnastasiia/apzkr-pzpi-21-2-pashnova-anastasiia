@@ -1,0 +1,60 @@
+﻿@model List<LightServeMVC.Models.Dto.PopularDishDto>
+
+@if (Model.Any())
+{
+    <h2>Popular Dishes</h2>
+
+    <canvas id="popularDishesChart" width="400" height="200"></canvas>
+
+    <button onclick="exportToCSV()">Export to CSV</button>
+    <button onclick="printChart()">Print chart</button>
+
+    @section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        var popularDishesData = @Html.Raw(Json.Serialize(Model));
+
+            var dishNames = popularDishesData.map(entry => entry.dishName);
+            var orderCounts = popularDishesData.map(entry => entry.orderCount);
+
+            var ctx = document.getElementById('popularDishesChart').getContext('2d');
+            var popularDishesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dishNames,
+                    datasets: [{
+                        label: 'Order Count',
+                        data: orderCounts,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            function exportToCSV() {
+                // Add your code to export data to CSV
+            }
+
+            function printChart() {
+                document.getElementsByTagName('link')[0].media = 'all';
+                window.print();
+                document.getElementsByTagName('link')[0].media = 'print';
+            }
+        </script>
+    }
+}
+else
+{
+    <p>No information available for popular dishes</p>
+}

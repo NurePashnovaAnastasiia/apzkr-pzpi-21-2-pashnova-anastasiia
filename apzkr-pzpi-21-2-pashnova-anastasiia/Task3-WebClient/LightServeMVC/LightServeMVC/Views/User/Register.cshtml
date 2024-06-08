@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Customer Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model LightServeMVC.Models.Customer
+
+}
+
+<h2>User Registration</h2>
+
+@using (Html.BeginForm("Register", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Surname)
+        @Html.TextBoxFor(model => model.Surname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div class="text-danger">@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <p>Already have an account? <a href="@Url.Action("Login", "User")">Login</a></p>
+}
+
+

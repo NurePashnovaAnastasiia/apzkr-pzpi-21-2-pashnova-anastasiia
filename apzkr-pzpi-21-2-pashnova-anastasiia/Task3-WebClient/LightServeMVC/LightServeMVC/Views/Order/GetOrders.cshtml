@@ -1,0 +1,36 @@
+﻿@model IEnumerable<LightServeMVC.Models.Order>
+
+<h1>My Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Date/Time</th>
+            <th>Status</th>
+            <th>Cafe ID</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.DateTime.ToLocalTime()</td>
+                <td>@(order.IsDone ? "Completed" : "Pending")</td>
+                <td>@order.CafeId</td>
+                <td>
+                    <a href="@Url.Action("Details", "Order", new { orderId = order.Id })" class="btn btn-primary d-block">View Details</a>
+                    @if(order.IsDone == false)
+                    {
+                        @using (Html.BeginForm("Delete", "Order", new { orderId = order.Id }, FormMethod.Post))
+                        {
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model LightServeMVC.Models.Dto.DishDto
+
+@{
+    ViewBag.Title = "Add Dish";
+}
+
+<h2>Add Dish</h2>
+
+@using (Html.BeginForm("Add", "Dish", new { menuId = ViewContext.HttpContext.Request.Query["menuId"] }, FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price)
+        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Weight)
+        @Html.TextBoxFor(model => model.Weight, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}

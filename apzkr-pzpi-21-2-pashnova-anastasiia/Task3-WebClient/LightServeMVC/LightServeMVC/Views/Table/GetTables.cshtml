@@ -1,0 +1,45 @@
+﻿@{
+    var user = ViewData["User"] as User;
+}
+
+@model IEnumerable<LightServeMVC.Models.Table>
+
+<h1>Tables</h1>
+
+
+@if(user.IsOwner == true)
+{
+    <p>
+        <a asp-action="Add" asp-controller="Table" asp-route-cafeId="@ViewContext.HttpContext.Request.Query["cafeId"]" class="btn btn-primary">Add Table</a>
+    </p>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Table Number</th>
+            <th>Size</th>
+            <th>Availability</th>
+            <th>Cafe Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var table in Model)
+        {
+            <tr>
+                <td>@table.Number</td>
+                <td>@table.Size</td>
+                <td>@(table.IsAvailable ? "Available" : "Not Available")</td>
+                <td>@table.Cafe.Name</td>
+                @if (user.IsOwner == true)
+                {
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Table", new { id = table.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

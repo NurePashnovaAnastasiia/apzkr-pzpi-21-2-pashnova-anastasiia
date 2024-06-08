@@ -1,0 +1,36 @@
+﻿@model LightServeMVC.Models.Menu
+
+<div class="container">
+    <h2>@Model.Name</h2>
+    @Html.ActionLink("Add Dish", "Add", "Dish", new { menuId = Model.Id }, new { @class = "btn btn-primary" })
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Weight</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dish in Model.Dishes)
+            {
+                <tr>
+                    <td>@dish.Name</td>
+                    <td>@dish.Description</td>
+                    <td>@dish.Price</td>
+                    <td>@dish.Weight</td>
+                    <td>
+                        @Html.ActionLink("Update", "Update", "Dish", new { id = dish.Id }, new { @class = "btn btn-info" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Dish", new { id = dish.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

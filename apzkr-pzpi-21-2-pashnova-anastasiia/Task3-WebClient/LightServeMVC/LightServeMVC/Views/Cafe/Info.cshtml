@@ -1,0 +1,27 @@
+﻿@model LightServeMVC.Models.Cafe
+
+<h2 class="mb-6">Cafe Information</h2>
+<div class ="mb-6">
+    <h5>Id: @Model.Id</h5>
+    <h5>Cafe: @Model.Name</h5>
+</div>
+
+<div >
+    <ul class="d-inline-flex flex-column gap-1">
+        <li class="btn btn-info">@Html.ActionLink("Menus", "GetMenus", "Menu", null)</li>
+        <li class="btn btn-info">@Html.ActionLink("Tables", "GetTables", "Table", new { cafeId = Model.Id }, null)</li>
+        <li class="btn btn-info">@Html.ActionLink("Workers", "Index", "Worker", new { cafeId = Model.Id }, null)</li>
+        <li class="btn btn-info">@Html.ActionLink("Get Popular Dishes", "GetPopularDishes", "Dish", null)</li>
+        <li class="btn btn-info">@Html.ActionLink("Get Dish Amounts", "GetDishAmount", "Dish", null)</li>
+
+    </ul>
+</div>
+<style>
+    .btn a{
+        color: white;
+        text-decoration: none;
+    }
+    .mb-6{
+        margin-bottom: 20px;
+    }
+</style>

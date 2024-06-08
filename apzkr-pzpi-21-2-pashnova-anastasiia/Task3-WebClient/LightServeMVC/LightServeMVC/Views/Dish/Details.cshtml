@@ -1,0 +1,32 @@
+﻿@model LightServeMVC.Models.Dish
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Weight</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Name</td>
+                <td>@Model.Description</td>
+                <td>@Model.Price</td>
+                <td>@Model.Weight</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@using (Html.BeginForm("AddDishToOrder", "Order", new { dishId = ViewContext.HttpContext.Request.Query["dishId"] }, FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="amount">Quantity:</label>
+        <input type="number" class="form-control" id="amount" name="amount" min="1" value="1">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Dish</button>
+}

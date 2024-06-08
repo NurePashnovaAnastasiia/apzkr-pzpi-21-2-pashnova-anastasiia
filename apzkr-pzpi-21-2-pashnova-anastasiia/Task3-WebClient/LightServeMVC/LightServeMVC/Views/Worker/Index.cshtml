@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LightServeMVC.Models.Worker>
+@inject LanguageService language
+<div class="container">
+    <div class="pt-3" style="display:flex; align-items: center;">
+        <div class="col-6">
+            <h2 style="color: #8e9b97">@language.GetKey("YourWorkers"):</h2>
+        </div>
+        <div class="col-6" style="text-align: right">
+            <a href="@Url.Action("Add", "Worker", new { cafeId = ViewContext.HttpContext.Request.Query["cafeId"] })" class="btn btn-success">@language.GetKey("AddWorker")</a>
+        </div>
+    </div>
+    <div class="col-md-8">
+        @if (Model.Count() != 0)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>@language.GetKey("Name")</th>
+                        <th>@language.GetKey("Surname")</th>
+                        <th>@language.GetKey("Username")</th>
+                        <th>@language.GetKey("Actions")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var worker in Model)
+                    {
+                        <tr>
+                            <td>@worker.Id</td>
+                            <td>@worker.Name</td>
+                            <td>@worker.Surname</td>
+                            <td>@worker.Username</td>
+                            <td>
+                                <a href="@Url.Action("Info", "Worker", new { id = worker.Id })" class="btn btn-warning">@language.GetKey("Info")</a>
+                                <a href="@Url.Action("Delete", "Worker", new { id = worker.Id })" class="btn btn-danger">@language.GetKey("Delete")</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>@language.GetKey("NoWorkers")</p>
+        }
+    </div>
+</div>

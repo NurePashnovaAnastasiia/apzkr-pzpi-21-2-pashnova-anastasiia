@@ -1,0 +1,60 @@
+﻿@model List<LightServeMVC.Models.Dto.DishPriceQuantity>
+
+@if (Model.Any())
+{
+    <h2>Total Price of Dishes</h2>
+
+    <canvas id="totalPriceChart" width="400" height="200"></canvas>
+
+    <button onclick="exportToCSV()">Export to CSV</button>
+    <button onclick="printChart()">Print chart</button>
+
+    @section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        var totalPriceData = @Html.Raw(Json.Serialize(Model));
+
+            var dishNames = totalPriceData.map(entry => entry.dishName);
+            var totalPrices = totalPriceData.map(entry => entry.totalPrice);
+
+            var ctx = document.getElementById('totalPriceChart').getContext('2d');
+            var totalPriceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dishNames,
+                    datasets: [{
+                        label: 'Total Price',
+                        data: totalPrices,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            function exportToCSV() {
+                // Add your code to export data to CSV
+            }
+
+            function printChart() {
+                document.getElementsByTagName('link')[0].media = 'all';
+                window.print();
+                document.getElementsByTagName('link')[0].media = 'print';
+            }
+        </script>
+    }
+}
+else
+{
+    <p>No information available for total prices of dishes</p>
+}

@@ -1,0 +1,16 @@
+﻿@model LightServeMVC.Models.Dto.CafeDto
+
+<h2>Add Cafe</h2>
+
+@using (Html.BeginForm("Add", "Cafe", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Cafe</button>
+}

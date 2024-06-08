@@ -1,0 +1,23 @@
+﻿@model LightServeMVC.Models.Dto.WorkerDto
+@inject LanguageService language
+
+<h2>@language.GetKey("AddWorker")</h2>
+
+@using (Html.BeginForm("Add", "Worker", new { cafeId = ViewContext.HttpContext.Request.Query["cafeId"] }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <p>@language.GetKey("Name")</p>
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <p>@language.GetKey("Surname")</p>
+        @Html.TextBoxFor(model => model.Surname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">@language.GetKey("RegisterWorker")</button>
+}
