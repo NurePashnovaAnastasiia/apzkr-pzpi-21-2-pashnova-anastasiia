@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extension="clr-namespace:LightServeMobile.Extension"
+             xmlns:strings="clr-namespace:LightServeMobile.Resources.Strings"
+             x:Class="LightServeMobile.MainPage">
+
+    <StackLayout Padding="20">
+        <Entry x:Name="UsernameEntry" Placeholder="Username" />
+        <Entry x:Name="PasswordEntry" Placeholder="{extension:Translate Key=Password}" IsPassword="True" />
+        <Button Text="{extension:Translate Key=Login}" Clicked="OnLoginButtonClicked" />
+    </StackLayout>
+
+</ContentPage>

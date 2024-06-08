@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LightServeMobile.Views.TablePage"
+             Title="Столики">
+    <ScrollView> <CollectionView x:Name="TaskCollectionView" ItemsSource="{Binding Tables}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="10" Padding="10" CornerRadius="10" HasShadow="True" BackgroundColor="#e0e0e0"> <Grid ColumnDefinitions="*, Auto"> <VerticalStackLayout>
+                                <Label Text="{Binding Number, StringFormat='Столик #{0}'}" 
+                                       FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
+                                <Label Text="{Binding Size, StringFormat='Місця: {0}'}" TextColor="Black"/>
+                                <Label Text="{Binding IsDone, StringFormat='Доступний: {0}'}" TextColor="Black">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsAvailable}" Value="True">
+                                            <Setter Property="Text" Value="Виконано: так" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsAvailable}" Value="False">
+                                            <Setter Property="Text" Value="Виконано: ні" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="1" Text="Змінити статус"
+                                    TextColor="White" BackgroundColor="{Binding IsAvailable, Converter={StaticResource InverseBoolToColorConverter}}"
+                                    Clicked="ChangeTableAvailability" 
+                                    CommandParameter="{Binding .}"
+                                    HorizontalOptions="End" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ScrollView>
+</ContentPage>

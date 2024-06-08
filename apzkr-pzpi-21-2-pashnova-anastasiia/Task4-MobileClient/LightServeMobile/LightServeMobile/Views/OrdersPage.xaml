@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extension="clr-namespace:LightServeMobile.Extension"
+             xmlns:strings="clr-namespace:LightServeMobile.Resources.Strings"
+             x:Class="LightServeMobile.Views.OrdersPage"
+             Title="{extension:Translate Key=Orders}">
+
+    <CollectionView x:Name="TaskCollectionView" ItemsSource="{Binding Orders}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Margin="10" Padding="10" CornerRadius="10" HasShadow="True" BackgroundColor="#e0e0e0">
+                    <Grid ColumnDefinitions="*, Auto, Auto">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding DateTime, StringFormat='{0:d}'}" TextColor="Black"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{extension:Translate Key=Id} " />
+                                <Label Text="{Binding Id, StringFormat=' #{0}'}" TextColor="Black" />
+                            </StackLayout>
+                            <Label Text="{Binding IsDone, StringFormat='Виконано: {0}'}" TextColor="Black">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsDone}" Value="True">
+                                        <Setter Property="Text" Value="{extension:Translate Key=Done}" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsDone}" Value="False">
+                                        <Setter Property="Text" Value="{extension:Translate Key=NotDone}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </VerticalStackLayout>
+
+                        <Button Grid.Column="1" Text="{extension:Translate Key=ChangeStatus}"
+                                Clicked="ChangeOrderStatus" 
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="{Binding IsDone, Converter={StaticResource InverseBoolToColorConverter}}"
+                                TextColor="White"
+                                HorizontalOptions="End" />
+
+                        <Button Grid.Column="2" Text="{extension:Translate Key=Details}"
+                                Clicked="ViewOrderDetails"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="LightBlue"
+                                TextColor="White"
+                                HorizontalOptions="End" />
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentPage>
+
