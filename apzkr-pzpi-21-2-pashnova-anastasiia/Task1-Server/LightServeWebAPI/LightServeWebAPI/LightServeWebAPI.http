@@ -1,0 +1,6 @@
+@LightServeWebAPI_HostAddress = http://localhost:5139
+
+GET {{LightServeWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
